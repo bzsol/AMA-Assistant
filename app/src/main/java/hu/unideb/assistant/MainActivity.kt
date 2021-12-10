@@ -4,7 +4,6 @@ import android.content.Intent
 import android.net.Uri
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
-
 import androidx.appcompat.app.AppCompatDelegate
 import androidx.recyclerview.widget.LinearLayoutManager
 import hu.unideb.assistant.data.Message
@@ -15,14 +14,14 @@ import hu.unideb.assistant.utils.Constants.RECEIVE_ID
 import hu.unideb.assistant.utils.Constants.SEND_ID
 import hu.unideb.assistant.utils.Response
 import hu.unideb.assistant.utils.Time
-
 import kotlinx.coroutines.*
+
 
 class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: MessengerAdapter
     private lateinit var binding: ActivityMainBinding
-    var name_list = listOf<String>("Zsolti","Petra","Orsi","Gergő")
+    private var namelist = listOf("Gergő")
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -32,7 +31,7 @@ class MainActivity : AppCompatActivity() {
         setContentView(binding.root)
         recView()
         clickEvent()
-        customMessage("Hi!\nMy name is ${name_list[(name_list.indices).random()]}\nHow can I help you?")
+        customMessage("Hi!\nMy name is ${namelist[(namelist.indices).random()]}\nHow can I help you?")
     }
 
     @DelicateCoroutinesApi
@@ -60,7 +59,7 @@ class MainActivity : AppCompatActivity() {
     private fun sendMessage(){
         val message = binding.etMessage.text.toString()
         val timeStamp = Time.TimeStamp()
-        if(!message.isEmpty()){
+        if(message.isNotEmpty()){
             binding.etMessage.setText("")
             adapter.insert(Message(message, SEND_ID,timeStamp))
             binding.rvMessages.scrollToPosition(adapter.itemCount-1)

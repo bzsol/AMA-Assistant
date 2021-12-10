@@ -1,9 +1,16 @@
 package hu.unideb.assistant.utils
 
+import android.util.Log
+import hu.unideb.assistant.ApiRequest
+import hu.unideb.assistant.api.ApiUrls
 import hu.unideb.assistant.utils.Constants.OPEN_GOOGLE
 import hu.unideb.assistant.utils.Constants.OPEN_SEARCH
+import kotlinx.coroutines.*
+import retrofit2.Retrofit
+import retrofit2.converter.gson.GsonConverterFactory
 
 object Response {
+    @DelicateCoroutinesApi
     fun basicResponse(message: String): String{
         val random = (0..2).random()
         val message = message.lowercase()
@@ -28,6 +35,25 @@ object Response {
             }
             message.contains("bread") -> {
                 "\uD83C\uDF5E"
+            }
+            message.contains("fact") -> {
+                var ans = ""
+                try {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.USELESS_FACT_URL).addConverterFactory(GsonConverterFactory.create()).build().create(ApiRequest::class.java)
+                    GlobalScope.launch(Dispatchers.IO) {
+                        val response = api.getUselessFact()
+                        Log.d("Response",response.text)
+                        ans = response.text
+                    }
+                }
+                catch (e: Exception){
+                    ans = "Some Aliens stoled your fact \uD83D\uDC7D"
+                }
+                Thread.sleep(1000)
+                ans
+            }
+            message.contains("aki ver") -> {
+                "Az nem haver \uD83D\uDC80"
             }
 
             message.contains("lorem") -> {

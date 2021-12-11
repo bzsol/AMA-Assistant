@@ -21,7 +21,7 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var adapter: MessengerAdapter
     private lateinit var binding: ActivityMainBinding
-    private var namelist = listOf("Gergely")
+    private var namelist = listOf("Gergő")
 
     @DelicateCoroutinesApi
     override fun onCreate(savedInstanceState: Bundle?) {

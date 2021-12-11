@@ -32,6 +32,18 @@ class MainActivity : AppCompatActivity() {
         recView()
         clickEvent()
         customMessage("Hi!\nMy name is ${namelist[(namelist.indices).random()]}\nHow can I help you?")
+        Thread.sleep(3000)
+        customMessage("I can do this at the moment!\n" +
+                "-> Tell the time\n" +
+                "-> If you are bored I can give you an advice\n" +
+                "-> jokes\n" +
+                "-> yo momma jokes\n" +
+                "-> your IP\n" +
+                "-> lorem\n" +
+                "-> facts about everything and also useless\n" +
+                "-> advice\n" + "You can freely ask me not just this type of strings")
+        Thread.sleep(3000)
+        customMessage("I hope this will be a good app to demonstrate the Kotlin is good! \uD83E\uDD73 \uD83E\uDD73")
     }
 
     @DelicateCoroutinesApi

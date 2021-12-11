@@ -1,7 +1,8 @@
 package hu.unideb.assistant
 
 import hu.unideb.assistant.api.*
-import retrofit2.http.GET
+import hu.unideb.assistant.api.ApiUrls.API_KEY
+import retrofit2.http.*
 
 interface ApiRequest {
     @GET("random.json?language=en")
@@ -21,5 +22,13 @@ interface ApiRequest {
 
     @GET("advice")
     suspend fun getAdvice(): AdviceJson
+
+    @Headers("Authorization: BVb6iTWgJi5o")
+    @GET("ai")
+    suspend fun getAI(@Query("message") message: String,@Query("server") server: String): AIJson
+
+    @Headers("Authorization: BVb6iTWgJi5o")
+    @GET("weather")
+    suspend fun getWeather(@Query("city") city: String)
 
 }

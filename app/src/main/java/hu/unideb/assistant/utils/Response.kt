@@ -29,6 +29,13 @@ object Response {
                 }
 
             }
+            message.contains("flip") || message.contains("flip a coin") -> {
+                when((0..1).random()){
+                    0 -> return "Heads"
+                    1 -> return "Tails"
+                    else -> {"The coin disappeared"}
+                }
+            }
             // Time
             message.contains("time") && message.contains("?") -> {
                 Time.TimeStamp()
@@ -36,6 +43,7 @@ object Response {
             message.contains("bread") -> {
                 "\uD83C\uDF5E"
             }
+
             message.contains("fact") -> {
                 val ans = CoroutineScope(Dispatchers.IO).async {
                     val api = Retrofit.Builder().baseUrl(ApiUrls.USELESS_FACT_URL)
@@ -96,9 +104,6 @@ object Response {
                 }
                 return ans.await()
             }
-            message.contains("aki ver") -> {
-                "Az nem haver \uD83D\uDC80"
-            }
 
             message.contains("lorem") -> {
                 "Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum."
@@ -120,13 +125,15 @@ object Response {
                 }
             }
             else -> {
-                when (random) {
-                    0 -> "What do you mean?"
-                    1 -> "Would you kindly repeat that to me again?"
-                    2 -> "I don't know....."
-                    else -> "Error"
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.AI_URL)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getAI(message,"main")
+                    return@async respond[0].response
+                }
+                return ans.await()
                 }
             }
         }
     }
-}

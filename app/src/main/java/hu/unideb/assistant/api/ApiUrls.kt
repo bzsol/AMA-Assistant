@@ -7,5 +7,7 @@ object ApiUrls {
     const val BORED_URL = "https://www.boredapi.com/api/"
     const val IP_URL = "https://api.techniknews.net/"
     const val ADVICE_URL = "https://api.adviceslip.com/"
+    const val AI_URL = "https://api.pgamerx.com/v5/"
+    const val API_KEY = "BVb6iTWgJi5o"
 
 }

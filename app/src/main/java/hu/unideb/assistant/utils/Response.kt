@@ -11,7 +11,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 object Response {
     @DelicateCoroutinesApi
-    fun basicResponse(message: String): String{
+    suspend fun basicResponse(message: String): String {
         val random = (0..2).random()
         val message = message.lowercase()
 
@@ -37,20 +37,64 @@ object Response {
                 "\uD83C\uDF5E"
             }
             message.contains("fact") -> {
-                var ans = ""
-                try {
-                    val api = Retrofit.Builder().baseUrl(ApiUrls.USELESS_FACT_URL).addConverterFactory(GsonConverterFactory.create()).build().create(ApiRequest::class.java)
-                    GlobalScope.launch(Dispatchers.IO) {
-                        val response = api.getUselessFact()
-                        Log.d("Response",response.text)
-                        ans = response.text
-                    }
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.USELESS_FACT_URL)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getUselessFact()
+                    return@async respond.text
                 }
-                catch (e: Exception){
-                    ans = "Some Aliens stoled your fact \uD83D\uDC7D"
+                return ans.await()
+            }
+            message.contains("joke") -> {
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.DARK_HUMOR)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getDarkHumor()
+                    return@async respond.joke
                 }
-                Thread.sleep(1000)
-                ans
+                return ans.await()
+            }
+            message.contains("yo momma") -> {
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.YO_MOMMA)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getYoMomma()
+                    return@async respond.joke
+                }
+                return ans.await()
+            }
+            message.contains("bored") || message.contains("activity") -> {
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.BORED_URL)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getBored()
+                    return@async respond.activity
+                }
+                return ans.await()
+            }
+            message.contains("ip") -> {
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.IP_URL)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getIP()
+                    return@async "${respond.country}\n${respond.regionName}\n${respond.isp}\n${respond.ip}"
+                }
+                return ans.await()
+            }
+            message.contains("advice") -> {
+                val ans = CoroutineScope(Dispatchers.IO).async {
+                    val api = Retrofit.Builder().baseUrl(ApiUrls.ADVICE_URL)
+                        .addConverterFactory(GsonConverterFactory.create()).build()
+                        .create(ApiRequest::class.java)
+                    val respond = api.getAdvice()
+                    return@async respond.slip.advice
+                }
+                return ans.await()
             }
             message.contains("aki ver") -> {
                 "Az nem haver \uD83D\uDC80"
@@ -76,7 +120,7 @@ object Response {
                 }
             }
             else -> {
-                when(random) {
+                when (random) {
                     0 -> "What do you mean?"
                     1 -> "Would you kindly repeat that to me again?"
                     2 -> "I don't know....."

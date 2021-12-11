@@ -30,7 +30,7 @@ class MainActivity : AppCompatActivity() {
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
         recView()
-        clickEvent()
+
         customMessage("Hi!\nMy name is ${namelist[(namelist.indices).random()]}\nHow can I help you?")
         customMessage("I can do this at the moment!\n" +
                 "-> Tell the time\n" +
@@ -41,6 +41,7 @@ class MainActivity : AppCompatActivity() {
                 "-> lorem\n" +
                 "-> facts about everything and also useless\n" + "You can freely ask me not just this type of strings")
         customMessage("I hope this will be a good app to demonstrate the Kotlin is good! \uD83E\uDD73 \uD83E\uDD73")
+        clickEvent()
     }
 
     @DelicateCoroutinesApi

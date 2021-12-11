@@ -32,15 +32,8 @@ class MainActivity : AppCompatActivity() {
         recView()
 
         customMessage("Hi!\nMy name is ${namelist[(namelist.indices).random()]}\nHow can I help you?")
-        customMessage("I can do this at the moment!\n" +
-                "-> Tell the time\n" +
-                "-> If you are bored I can give you an advice\n" +
-                "-> jokes\n" +
-                "-> yo momma jokes\n" +
-                "-> your IP\n" +
-                "-> lorem\n" +
-                "-> facts about everything and also useless\n" + "You can freely ask me not just this type of strings")
-        customMessage("I hope this will be a good app to demonstrate the Kotlin is good! \uD83E\uDD73 \uD83E\uDD73")
+        customMessage("Please read the README.md in the github project!!")
+        customMessage("I hope this will be a good app to demonstrate the Kotlin is very good for programming!! \uD83E\uDD73 \uD83E\uDD73")
         clickEvent()
     }
 

@@ -10,7 +10,6 @@ import androidx.recyclerview.widget.RecyclerView
 import hu.unideb.assistant.data.Message
 import hu.unideb.assistant.utils.Constants.RECEIVE_ID
 import hu.unideb.assistant.utils.Constants.SEND_ID
-import kotlinx.android.synthetic.main.message_item.view.*
 
 class MessengerAdapter: RecyclerView.Adapter<MessengerAdapter.MessageViewHolder>() {
 

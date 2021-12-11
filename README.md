@@ -13,3 +13,7 @@
 - Érme feldobás (flip a coin)
 
 ### Szükség szerint bővíteni is szeretném de egyenlőre idő hiányban szenvedek 
+
+## Ha a projekt az SDK lokációját keresné
+- https://stackoverflow.com/questions/27620262/sdk-location-not-found-define-location-with-sdk-dir-in-the-local-properties-fil
+- Mind Windows,Linux,Mac-re van megoldás az Android Studio .gitignore kiszedi sajnos a local.properties-t
